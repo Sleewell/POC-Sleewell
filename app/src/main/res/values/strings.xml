@@ -8,17 +8,21 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="connection_headers">Connectivity</string>
+    <string name="notifications_headers">Notifications</string>
+    
+    <!-- Connections Preferences -->
+    <string name="wifi_title">Wifi</string>
+    <string name="wifi_summary_on">Disable wifi connection when putting the phone on the base</string>
+    <string name="wifi_summary_off">Keep wifi during night</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="bluetooth_title">Bluetooth</string>
+    <string name="bluetooth_summary_on">Disable bluetooth connection when putting the phone on the base</string>
+    <string name="bluetooth_summary_off">Keep bluetooth during night</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- NPD Preferences -->
+    <string name="npd_title">Ne pas déranger</string>
+    <string name="npd_summary_on">Disable notifications when putting the phone on the base</string>
+    <string name="npd_summary_off">Keep all the notifications during night</string>
+
 </resources>
