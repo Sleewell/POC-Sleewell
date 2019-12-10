@@ -21,8 +21,8 @@ class SoundsFragment : Fragment() {
     ): View? {
         soundsViewModel =
             ViewModelProviders.of(this).get(SoundsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        val root = inflater.inflate(R.layout.fragment_sounds, container, false)
+        val textView: TextView = root.findViewById(R.id.text_sounds)
         soundsViewModel.text.observe(this, Observer {
             textView.text = it
         })

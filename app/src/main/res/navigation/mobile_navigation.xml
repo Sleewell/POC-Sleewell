@@ -15,17 +15,17 @@
         android:id="@+id/navigation_alarms"
         android:name="com.example.sleewell.ui.alarms.AlarmsFragment"
         android:label="@string/title_alarms"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_alarms" />
 
     <fragment
         android:id="@+id/navigation_sounds"
         android:name="com.example.sleewell.ui.sounds.SoundsFragment"
         android:label="@string/title_sounds"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_sounds" />
 
     <fragment
         android:id="@+id/navigation_stats"
         android:name="com.example.sleewell.ui.statistics.StatisticsFragment"
         android:label="@string/title_stats"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_statistics" />
 </navigation>
