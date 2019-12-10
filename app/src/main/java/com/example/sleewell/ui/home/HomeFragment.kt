@@ -43,37 +43,4 @@ class HomeFragment : Fragment() {
         }
         return root
     }
-
-    fun enableWifi(value: Boolean) {
-        val wifiManager : WifiManager = context?.getSystemService(WIFI_SERVICE) as WifiManager
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
-            wifiManager.setWifiEnabled(value)
-    }
-
-    private fun enableBluetouth(value: Boolean) {
-        val manager = BluetoothAdapter.getDefaultAdapter()
-
-        if (!value && manager.isEnabled) {
-            manager.disable()
-        } else if (value && !manager.isEnabled) {
-            manager.enable()
-        }
-    }
-
-    private fun enableDnd(value: Boolean) {
-        val notificationManager : NotificationManager = context?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-
-        // Check if the notification policy access has been granted for the app.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return
-        if (!notificationManager.isNotificationPolicyAccessGranted) {
-            val intent = Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-            startActivity(intent)
-        }
-        if (value) {
-            notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
-        } else {
-            notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
-        }
-    }
 }
