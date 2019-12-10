@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.sleewell.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_alarms"
+        android:name="com.example.sleewell.ui.alarms.AlarmsFragment"
+        android:label="@string/title_alarms"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.sleewell.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:id="@+id/navigation_sounds"
+        android:name="com.example.sleewell.ui.sounds.SoundsFragment"
+        android:label="@string/title_sounds"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_stats"
+        android:name="com.example.sleewell.ui.statistics.StatisticsFragment"
+        android:label="@string/title_stats"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

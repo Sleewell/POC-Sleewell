@@ -1,4 +1,4 @@
-package com.example.sleewell.ui.dashboard
+package com.example.sleewell.ui.sounds
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sleewell.R
 
-class DashboardFragment : Fragment() {
+class SoundsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var soundsViewModel: SoundsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        soundsViewModel =
+            ViewModelProviders.of(this).get(SoundsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        soundsViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
