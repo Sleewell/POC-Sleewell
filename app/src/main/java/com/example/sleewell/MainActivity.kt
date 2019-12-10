@@ -24,7 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mnfcAdapter : NfcAdapter
+    var mnfcAdapter : NfcAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,10 +130,10 @@ class MainActivity : AppCompatActivity() {
             Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
         val intentFilters = arrayOf<IntentFilter>()
-        mnfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
+        mnfcAdapter?.enableForegroundDispatch(this, pendingIntent, intentFilters, null)
     }
 
     private fun disableForegroundDispatchSystem() {
-        mnfcAdapter.disableForegroundDispatch(this)
+        mnfcAdapter?.disableForegroundDispatch(this)
     }
 }
