@@ -1,23 +1,14 @@
 package com.example.sleewell.ui.home
 
-import android.app.NotificationManager
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
-import android.content.Context.*
-import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
-import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.example.sleewell.SettingsActivity
+import com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
 
 
 class HomeFragment : Fragment() {
@@ -41,6 +32,11 @@ class HomeFragment : Fragment() {
         } else {
             textView.text = "Sleep OFF"
         }
+
+        val customAnalogClock = root.findViewById(com.example.sleewell.R.id.analog_clock) as CustomAnalogClock
+        customAnalogClock.init(context)
+        customAnalogClock.setAutoUpdate(true)
+
         return root
     }
 }
