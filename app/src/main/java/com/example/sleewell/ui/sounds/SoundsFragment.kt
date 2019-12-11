@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceFragmentCompat
 import com.example.sleewell.R
 
 class SoundsFragment : Fragment() {
