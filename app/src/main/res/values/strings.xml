@@ -10,7 +10,7 @@
     <!-- Preference Titles -->
     <string name="connection_headers">Connectivity</string>
     <string name="notifications_headers">Notifications</string>
-    
+
     <!-- Connections Preferences -->
     <string name="wifi_title">Wifi</string>
     <string name="wifi_summary_on">Disable wifi connection when putting the phone on the base</string>
@@ -24,5 +24,9 @@
     <string name="npd_title">Ne pas déranger</string>
     <string name="npd_summary_on">Disable notifications when putting the phone on the base</string>
     <string name="npd_summary_off">Keep all the notifications during night</string>
+
+    <string name="title_activity_proto_activated">ProtoActivated</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

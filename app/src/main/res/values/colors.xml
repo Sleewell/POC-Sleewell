@@ -5,4 +5,7 @@
     <color name="colorPrimaryDark">#142F41</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="blue">#1C3099</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

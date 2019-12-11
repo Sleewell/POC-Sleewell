@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity() {
                     enableBluetooth(false)
                 }
                 Toast.makeText(applicationContext, "¨Phone asleep", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, ProtoActivated::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId;
+        val id = item.itemId
 
         if (id == R.id.action_settings) {
             //disableForegroundDispatchSystem()
