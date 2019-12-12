@@ -7,5 +7,8 @@
     <color name="colorText">#FFFFFF</color>
     <color name="blue">#1C3099</color>
 
+    <color name="colorAccentClock">#FF0000</color>
+    <color name="colorTextClock">#FF0000</color>
+
     <color name="black_overlay">#66000000</color>
 </resources>

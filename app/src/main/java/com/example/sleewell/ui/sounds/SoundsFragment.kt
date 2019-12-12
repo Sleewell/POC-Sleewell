@@ -33,14 +33,14 @@ class SoundsFragment : Fragment() {
         listView = root.findViewById(R.id.music_list_view) as ListView
         list = ArrayList()
 
-        val fields = R.raw::class.java!!.fields
+        val fields = R.raw::class.java.fields
         for (i in fields.indices) {
             list.add(fields[i].name)
         }
         adapter = ArrayAdapter(root.context, android.R.layout.simple_list_item_1, list)
         listView.adapter = adapter
 
-        listView.onItemClickListener = AdapterView.OnItemClickListener{adapterView, view, i, l ->
+        listView.onItemClickListener = AdapterView.OnItemClickListener{ _, _, i, _ ->
             if (mediaPlayer != null) {
                 mediaPlayer!!.release()
             }
