@@ -40,4 +40,17 @@
             app:summaryOn="@string/npd_summary_on" />
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/Option_title">
+        <SwitchPreferenceCompat
+            app:key="Music"
+            app:title="@string/Music_option"
+            app:summaryOff="@string/Music_off"
+            app:summaryOn="@string/Music_on" />
+        <SwitchPreferenceCompat
+            app:key="Halo"
+            app:title="@string/Halo_option"
+            app:summaryOff="@string/Halo_off"
+            app:summaryOn="@string/Halo_on" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

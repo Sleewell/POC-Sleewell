@@ -11,6 +11,7 @@ import android.os.Handler
 import android.provider.Settings
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.preference.PreferenceManager
 import com.example.sleewell.ui.sounds.SoundsFragment
 import kotlinx.android.synthetic.main.activity_proto_activated.*
 
@@ -78,6 +79,7 @@ class ProtoActivated : AppCompatActivity() {
             intent.data = Uri.parse("package:com.example.sleewell")
             startActivity(intent)
         }
+
         list = ArrayList()
         val fields = R.raw::class.java.fields
         for (i in fields.indices) {
@@ -88,8 +90,12 @@ class ProtoActivated : AppCompatActivity() {
         }
         val singh = resources.getIdentifier(list[SoundsFragment.music_select], "raw", applicationContext.packageName)
         mediaPlayer = MediaPlayer.create(applicationContext, singh)
-        mediaPlayer!!.start()
-        timer.start()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        if (prefs.all["Music"] == true) {
+            mediaPlayer!!.start()
+        }
+        if (prefs.all["Halo"] == true)
+            timer.start()
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

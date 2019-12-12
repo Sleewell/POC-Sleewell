@@ -29,4 +29,17 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- Option -->
+    <string name="Option_title">Option</string>
+    <string name="Halo_option">Halo</string>
+    <string name="Halo_on">Halo turn on</string>
+    <string name="Halo_off">Halo turn off</string>
+    <string name="Music_option">Music</string>
+    <string name="Music_on">Music turn on</string>
+    <string name="Music_off">Music turn off</string>
+    <!-- Button -->
+    <string name="Go_to_sleep_button">Go To Sleep</string>
+
+
+
 </resources>

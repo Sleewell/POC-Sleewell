@@ -30,20 +30,41 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(com.example.sleewell.R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(com.example.sleewell.R.id.text_home)
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         // How to get preferences
+        setParam(root)
+        val customAnalogClock = root.findViewById(R.id.analog_clock) as CustomAnalogClock
+        customAnalogClock.init(context)
+        customAnalogClock.setAutoUpdate(true)
+        return root
+    }
+
+    fun setParam(root : View) {
+        val textView: TextView = root.findViewById(R.id.text_home)
+        val textHalo: TextView = root.findViewById(R.id.halo_home)
+        val textMusic: TextView = root.findViewById(R.id.music_home)
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+
         if (prefs.all["SleepMode"] == true) {
             textView.text = "Sleep ON"
         } else {
             textView.text = "Sleep OFF"
         }
+        if (prefs.all["Halo"] == true) {
+            textHalo.text = "Halo ON"
+        } else {
+            textHalo.text = "Halo OFF"
+        }
+        if (prefs.all["Music"] == true) {
+            textMusic.text = "Music ON"
+        } else {
+            textMusic.text = "Music OFF"
+        }
+    }
 
-        val customAnalogClock = root.findViewById(com.example.sleewell.R.id.analog_clock) as CustomAnalogClock
-        customAnalogClock.init(context)
-        customAnalogClock.setAutoUpdate(true)
-        return root
+    override fun onResume() {
+        setParam(view!!)
+        super.onResume()
     }
 }
