@@ -71,7 +71,7 @@ class ProtoActivated : AppCompatActivity() {
             Settings.System.putInt(this.contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
         } else {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-            intent.data = Uri.parse("package:com.example.poc_halos_sw_2019")
+            intent.data = Uri.parse("package:com.example.sleewell")
             startActivity(intent)
         }
         timer.start()
@@ -114,6 +114,7 @@ class ProtoActivated : AppCompatActivity() {
     }
 
     fun back(v : View) {
+        timer.cancel()
         finish()
     }
 
