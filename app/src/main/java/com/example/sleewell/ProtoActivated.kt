@@ -1,6 +1,7 @@
 package com.example.sleewell
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.os.Handler
 import android.provider.Settings
 import android.view.View
 import androidx.annotation.RequiresApi
+import com.example.sleewell.ui.sounds.SoundsFragment
 import kotlinx.android.synthetic.main.activity_proto_activated.*
 
 /**
@@ -42,6 +44,9 @@ class ProtoActivated : AppCompatActivity() {
 
     var brightnessup: Boolean = true
     var brightness = 0
+    private var mediaPlayer: MediaPlayer? = null
+    private lateinit var list: MutableList<String>
+
 
     private val timer = object: CountDownTimer(30000, 100) {
 
@@ -58,7 +63,6 @@ class ProtoActivated : AppCompatActivity() {
         }
         override fun onFinish() {}
     }
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +78,17 @@ class ProtoActivated : AppCompatActivity() {
             intent.data = Uri.parse("package:com.example.sleewell")
             startActivity(intent)
         }
+        list = ArrayList()
+        val fields = R.raw::class.java.fields
+        for (i in fields.indices) {
+            list.add(fields[i].name)
+        }
+        if (mediaPlayer != null) {
+            mediaPlayer!!.release()
+        }
+        val singh = resources.getIdentifier(list[SoundsFragment.music_select], "raw", applicationContext.packageName)
+        mediaPlayer = MediaPlayer.create(applicationContext, singh)
+        mediaPlayer!!.start()
         timer.start()
     }
 
@@ -115,6 +130,8 @@ class ProtoActivated : AppCompatActivity() {
 
     fun back(v : View) {
         timer.cancel()
+        if (mediaPlayer != null)
+            mediaPlayer!!.stop()
         finish()
     }
 

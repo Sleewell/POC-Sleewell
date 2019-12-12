@@ -20,7 +20,9 @@ class SoundsFragment : Fragment() {
     private lateinit var list: MutableList<String>
     private lateinit var adapter: ListAdapter
     private var mediaPlayer: MediaPlayer? = null
-
+    companion object {
+        var music_select = 0
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +49,7 @@ class SoundsFragment : Fragment() {
             val singh = resources.getIdentifier(list[i], "raw", root.context.packageName)
             mediaPlayer = MediaPlayer.create(root.context, singh)
             mediaPlayer!!.start()
+            music_select = i
         }
         return root
     }

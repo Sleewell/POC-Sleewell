@@ -46,8 +46,4 @@ class HomeFragment : Fragment() {
         customAnalogClock.setAutoUpdate(true)
         return root
     }
-
-    fun StartSleep(){
-        Toast.makeText(context, "¨Phone asleep", Toast.LENGTH_LONG).show()
-    }
 }

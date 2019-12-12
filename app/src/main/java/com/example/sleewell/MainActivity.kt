@@ -23,6 +23,8 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
+const val EXTRA_MESSAGE = 0
+
 class MainActivity : AppCompatActivity() {
 
     var mnfcAdapter : NfcAdapter? = null
