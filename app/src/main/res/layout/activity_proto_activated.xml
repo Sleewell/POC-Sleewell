@@ -4,7 +4,7 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/fullBlack"
     tools:context=".ProtoActivated">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -23,6 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/halo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center|center_horizontal"
+            android:visibility="visible"
+            android:src="@drawable/circle_halos" />
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"

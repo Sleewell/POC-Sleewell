@@ -10,6 +10,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.provider.Settings
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
 import com.example.sleewell.ui.sounds.SoundsFragment
@@ -94,8 +95,11 @@ class ProtoActivated : AppCompatActivity() {
         if (prefs.all["Music"] == true) {
             mediaPlayer!!.start()
         }
-        if (prefs.all["Halo"] == true)
+        if (prefs.all["Halo"] == true) {
             timer.start()
+        } else {
+            findViewById<ImageView>(R.id.halo).visibility = View.INVISIBLE
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
