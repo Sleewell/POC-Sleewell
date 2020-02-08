@@ -16,20 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/SpotifyConnect_bt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:text="Connect"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.782"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/music_list_view"
-        app:layout_constraintVertical_bias="0.306" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="75dp"
@@ -41,4 +27,16 @@
         app:layout_constraintTop_toBottomOf="@+id/music_list_view"
         app:layout_constraintVertical_bias="0.294"
         app:srcCompat="@drawable/spotify" />
+
+    <Switch
+        android:id="@+id/SpotifyConnect_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.561"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/music_list_view"
+        app:layout_constraintVertical_bias="0.095" />
 </androidx.constraintlayout.widget.ConstraintLayout>

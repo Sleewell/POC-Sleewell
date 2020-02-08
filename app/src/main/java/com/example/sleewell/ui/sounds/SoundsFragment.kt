@@ -6,13 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
-import com.spotify.android.appremote.api.ContentApi
 import com.spotify.android.appremote.api.SpotifyAppRemote
-import android.widget.*
 
 
 class SoundsFragment : Fragment() {
@@ -26,6 +26,8 @@ class SoundsFragment : Fragment() {
     private lateinit var list: MutableList<String>
     private lateinit var adapter: ListAdapter
     private var mediaPlayer: MediaPlayer? = null
+    private lateinit var switch: Switch
+
     companion object {
         var music_select = 0
     }
@@ -60,9 +62,13 @@ class SoundsFragment : Fragment() {
 
 
         //Spotify button :
-        val button = root.findViewById(com.example.sleewell.R.id.SpotifyConnect_bt) as Button
-        button.setOnClickListener(View.OnClickListener {
+        switch = root.findViewById(com.example.sleewell.R.id.SpotifyConnect_bt)
+        switch.setOnClickListener(View.OnClickListener {
             //Toast.makeText(context, "Ok it's working", Toast.LENGTH_LONG).show()
+
+            if (!switch.isChecked) {
+                disconnect()
+            }
 
             val connectionParams = ConnectionParams.Builder(CLIENT_ID)
                 .setRedirectUri(REDIRECT_URI)
@@ -75,16 +81,16 @@ class SoundsFragment : Fragment() {
                     override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote
                         Log.d("MainActivity", "Connected! Yay!")
-                        Toast.makeText(context, "Connected", Toast.LENGTH_LONG).show()
-                        // Now you can start interacting with App Remote
-                        //connected()
+
+                        connected()
 
                     }
 
                     override fun onFailure(throwable: Throwable) {
                         //Log.e("MyActivity", throwable.message, throwable)
                         Toast.makeText(context, "Failed : " + throwable.message, Toast.LENGTH_LONG).show()
-
+                        if (switch.isChecked)
+                            switch.toggle()
                         // Something went wrong when attempting to connect! Handle errors here
                     }
                 })
@@ -92,6 +98,31 @@ class SoundsFragment : Fragment() {
 
 
         return root
+    }
+
+    private fun connected()
+    {
+        Toast.makeText(context, "Connected", Toast.LENGTH_LONG).show()
+        var prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val myEdit = prefs.edit()
+        myEdit.putBoolean("MusicSpotify", true)
+        myEdit.commit()
+        //Toast.makeText(context, prefs.getBoolean("MusicSpotify", false).toString(), Toast.LENGTH_LONG).show()
+    }
+
+    private fun disconnect()
+    {
+        Toast.makeText(context, "Disconnected", Toast.LENGTH_LONG).show()
+        var prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val myEdit = prefs.edit()
+        myEdit.putBoolean("MusicSpotify", false)
+        myEdit.commit()
+        //Toast.makeText(context, prefs.getBoolean("MusicSpotify", false).toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote)
     }
 
     override fun onDestroy() {
