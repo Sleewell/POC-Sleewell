@@ -16,7 +16,7 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 
 
 class SoundsFragment : Fragment() {
-    private val CLIENT_ID = "d28a6b2240514ac1a918765697a631a1" //TODO mettre client id ici
+    private val CLIENT_ID = "<CLIENT-ID>" //TODO a changer
     private val REDIRECT_URI = "http://com.example.sleewell/callback"
     private var mSpotifyAppRemote: SpotifyAppRemote? = null
 
