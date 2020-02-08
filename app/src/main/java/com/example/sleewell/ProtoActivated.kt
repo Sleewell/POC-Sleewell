@@ -57,6 +57,7 @@ class ProtoActivated : AppCompatActivity() {
 
     var brightnessup: Boolean = true
     var brightness = 0
+    var saveBrightness = 0
     private var mediaPlayer: MediaPlayer? = null
     private lateinit var list: MutableList<String>
 
@@ -85,6 +86,7 @@ class ProtoActivated : AppCompatActivity() {
         fullscreen_content.setOnClickListener { toggle() }
         dummy_button.setOnTouchListener(mDelayHideTouchListener)
         if (Settings.System.canWrite(this.baseContext)) {
+            saveBrightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
             Settings.System.putInt(this.contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
         } else {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -184,6 +186,7 @@ class ProtoActivated : AppCompatActivity() {
     }
 
     fun back(v : View) {
+        Settings.System.putInt(this.contentResolver, Settings.System.SCREEN_BRIGHTNESS, saveBrightness)
         timer.cancel()
         if (mediaPlayer != null)
             mediaPlayer!!.stop()
