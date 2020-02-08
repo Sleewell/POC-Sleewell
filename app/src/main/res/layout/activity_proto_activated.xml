@@ -45,6 +45,7 @@
                 android:id="@+id/dummy_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@drawable/button"
                 android:onClick="back"
                 android:text="Back" />
 

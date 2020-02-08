@@ -9,7 +9,7 @@
         android:id="@+id/music_list_view"
         android:layout_width="409dp"
         android:layout_height="386dp"
-        android:listSelector="@color/colorPrimary"
+        android:listSelector="@color/BleuVert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/BackgroundImageView"
+        android:layout_width="705dp"
+        android:layout_height="843dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.321"
+        app:srcCompat="@drawable/background_sleewell" />
+
     <com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
         android:id="@+id/analog_clock"
         android:layout_width="wrap_content"
@@ -12,10 +23,10 @@
         app:default_watchface="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintVertical_bias="0.061" />
 
     <TextView
         android:id="@+id/text_home"
@@ -25,6 +36,7 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textColor="@color/Orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GoToSleepButton" />
@@ -37,6 +49,7 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textColor="@color/Orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
@@ -47,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textColor="@color/Orange"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +69,10 @@
 
     <Button
         android:id="@+id/GoToSleepButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_width="201dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/button"
         android:onClick="StartSleep"
         android:text="@string/Go_to_sleep_button"
         app:layout_constraintEnd_toEndOf="parent"

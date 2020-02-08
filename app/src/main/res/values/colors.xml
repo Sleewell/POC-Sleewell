@@ -7,9 +7,14 @@
     <color name="colorText">#FFFFFF</color>
     <color name="blue">#1C3099</color>
     <color name="fullBlack">#000000</color>
+    <color name="transparent">#00000000</color>
 
     <color name="colorAccentClock">#FF0000</color>
     <color name="colorTextClock">#FF0000</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="BleuFoncé">#001822</color>
+    <color name="Orange">#D98735</color>
+    <color name="BleuVert">#089A92</color>
 </resources>
