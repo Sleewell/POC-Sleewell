@@ -1,19 +1,25 @@
 package com.example.sleewell.ui.sounds
 
-import android.app.PendingIntent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.preference.PreferenceFragmentCompat
-import com.example.sleewell.R
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import com.spotify.android.appremote.api.ContentApi
+import com.spotify.android.appremote.api.SpotifyAppRemote
+import android.widget.*
+
 
 class SoundsFragment : Fragment() {
+    private val CLIENT_ID = "d28a6b2240514ac1a918765697a631a1" //TODO mettre client id ici
+    private val REDIRECT_URI = "http://com.example.sleewell/callback"
+    private var mSpotifyAppRemote: SpotifyAppRemote? = null
+
 
     private lateinit var soundsViewModel: SoundsViewModel
     private  lateinit var listView: ListView
@@ -30,12 +36,12 @@ class SoundsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         soundsViewModel = ViewModelProviders.of(this).get(SoundsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_sounds, container, false)
+        val root = inflater.inflate(com.example.sleewell.R.layout.fragment_sounds, container, false)
 
-        listView = root.findViewById(R.id.music_list_view) as ListView
+        listView = root.findViewById(com.example.sleewell.R.id.music_list_view) as ListView
         list = ArrayList()
 
-        val fields = R.raw::class.java.fields
+        val fields = com.example.sleewell.R.raw::class.java.fields
         for (i in fields.indices) {
             list.add(fields[i].name)
         }
@@ -51,6 +57,40 @@ class SoundsFragment : Fragment() {
             mediaPlayer!!.start()
             music_select = i
         }
+
+
+        //Spotify button :
+        val button = root.findViewById(com.example.sleewell.R.id.SpotifyConnect_bt) as Button
+        button.setOnClickListener(View.OnClickListener {
+            //Toast.makeText(context, "Ok it's working", Toast.LENGTH_LONG).show()
+
+            val connectionParams = ConnectionParams.Builder(CLIENT_ID)
+                .setRedirectUri(REDIRECT_URI)
+                .showAuthView(true)
+                .build()
+
+            SpotifyAppRemote.connect(context, connectionParams,
+                object : Connector.ConnectionListener {
+
+                    override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote
+                        Log.d("MainActivity", "Connected! Yay!")
+                        Toast.makeText(context, "Connected", Toast.LENGTH_LONG).show()
+                        // Now you can start interacting with App Remote
+                        //connected()
+
+                    }
+
+                    override fun onFailure(throwable: Throwable) {
+                        //Log.e("MyActivity", throwable.message, throwable)
+                        Toast.makeText(context, "Failed : " + throwable.message, Toast.LENGTH_LONG).show()
+
+                        // Something went wrong when attempting to connect! Handle errors here
+                    }
+                })
+        })
+
+
         return root
     }
 

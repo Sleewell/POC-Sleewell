@@ -42,6 +42,11 @@
 
     <PreferenceCategory app:title="@string/Option_title">
         <SwitchPreferenceCompat
+            app:key="MusicSpotify"
+            app:title="SpotifyOption"
+            app:summaryOff="Spotify Off"
+            app:summaryOn="Spotify on" />
+        <SwitchPreferenceCompat
             app:key="Music"
             app:title="@string/Music_option"
             app:summaryOff="@string/Music_off"
