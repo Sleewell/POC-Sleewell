@@ -62,38 +62,43 @@ class SoundsFragment : Fragment() {
 
 
         //Spotify button :
+        var prefs = PreferenceManager.getDefaultSharedPreferences(context)
         switch = root.findViewById(com.example.sleewell.R.id.SpotifyConnect_bt)
+        if (prefs.getBoolean("MusicSpotify", false))
+            switch.toggle()
         switch.setOnClickListener(View.OnClickListener {
             //Toast.makeText(context, "Ok it's working", Toast.LENGTH_LONG).show()
 
             if (!switch.isChecked) {
                 disconnect()
+            } else {
+
+                val connectionParams = ConnectionParams.Builder(CLIENT_ID)
+                    .setRedirectUri(REDIRECT_URI)
+                    .showAuthView(true)
+                    .build()
+
+                SpotifyAppRemote.connect(context, connectionParams,
+                    object : Connector.ConnectionListener {
+
+                        override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
+                            mSpotifyAppRemote = spotifyAppRemote
+                            Log.d("MainActivity", "Connected! Yay!")
+
+                            connected()
+
+                        }
+
+                        override fun onFailure(throwable: Throwable) {
+                            //Log.e("MyActivity", throwable.message, throwable)
+                            Toast.makeText(context, "Failed : " + throwable.message, Toast.LENGTH_LONG).show()
+                            if (switch.isChecked)
+                                switch.toggle()
+                            // Something went wrong when attempting to connect! Handle errors here
+                        }
+                    }
+                )
             }
-
-            val connectionParams = ConnectionParams.Builder(CLIENT_ID)
-                .setRedirectUri(REDIRECT_URI)
-                .showAuthView(true)
-                .build()
-
-            SpotifyAppRemote.connect(context, connectionParams,
-                object : Connector.ConnectionListener {
-
-                    override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote
-                        Log.d("MainActivity", "Connected! Yay!")
-
-                        connected()
-
-                    }
-
-                    override fun onFailure(throwable: Throwable) {
-                        //Log.e("MyActivity", throwable.message, throwable)
-                        Toast.makeText(context, "Failed : " + throwable.message, Toast.LENGTH_LONG).show()
-                        if (switch.isChecked)
-                            switch.toggle()
-                        // Something went wrong when attempting to connect! Handle errors here
-                    }
-                })
         })
 
 

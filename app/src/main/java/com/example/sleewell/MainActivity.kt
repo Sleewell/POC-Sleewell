@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 if (prefs.all["SleepMode"] == true){
                     enableDnd(true)
                 }
-                if (prefs.all["wifi"] == true){
+                if (prefs.all["wifi"] == true && !prefs.getBoolean("MusicSpotify", false)){
                     enableWifi(false)
                 }
                 if (prefs.all["bluetooth"] == true){
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         if (value) {
-            notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALARMS)
         } else {
             notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
         }

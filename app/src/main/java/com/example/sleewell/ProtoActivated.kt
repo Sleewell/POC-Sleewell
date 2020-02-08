@@ -9,18 +9,29 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
 import com.example.sleewell.ui.sounds.SoundsFragment
 import kotlinx.android.synthetic.main.activity_proto_activated.*
+
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import com.spotify.android.appremote.api.SpotifyAppRemote
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 class ProtoActivated : AppCompatActivity() {
+    private val CLIENT_ID = "d28a6b2240514ac1a918765697a631a1"
+    private val REDIRECT_URI = "http://com.example.sleewell/callback"
+    private var mSpotifyAppRemote: SpotifyAppRemote? = null
+
+
     private val mHideHandler = Handler()
     private val mHidePart2Runnable = Runnable {
         fullscreen_content.systemUiVisibility =
@@ -92,14 +103,48 @@ class ProtoActivated : AppCompatActivity() {
         val singh = resources.getIdentifier(list[SoundsFragment.music_select], "raw", applicationContext.packageName)
         mediaPlayer = MediaPlayer.create(applicationContext, singh)
         val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        if (prefs.all["Music"] == true) {
+
+        if (prefs.all["Music"] == true && !prefs.getBoolean("MusicSpotify", false)) {
             mediaPlayer!!.start()
+        } else if (prefs.getBoolean("MusicSpotify", false)) {
+            startSpotify()
         }
         if (prefs.all["Halo"] == true) {
             timer.start()
         } else {
             findViewById<ImageView>(R.id.halo).visibility = View.INVISIBLE
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mSpotifyAppRemote?.playerApi?.pause()
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote)
+    }
+
+    private fun startSpotify()
+    {
+        val connectionParams = ConnectionParams.Builder(CLIENT_ID)
+            .setRedirectUri(REDIRECT_URI)
+            .showAuthView(true)
+            .build()
+
+        SpotifyAppRemote.connect(applicationContext, connectionParams,
+            object : Connector.ConnectionListener {
+
+                override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
+                    mSpotifyAppRemote = spotifyAppRemote
+                    Log.d("ProtoActivated", "Connected! Yay!")
+                    mSpotifyAppRemote?.playerApi?.setShuffle(true)
+                    mSpotifyAppRemote?.playerApi?.play("spotify:playlist:37i9dQZF1DWZd79rJ6a7lp")
+                }
+
+                override fun onFailure(throwable: Throwable) {
+                    //Log.e("MyActivity", throwable.message, throwable)
+                    Toast.makeText(applicationContext, "Failed : " + throwable.message, Toast.LENGTH_LONG).show()
+                    // Something went wrong when attempting to connect! Handle errors here
+                }
+            })
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
