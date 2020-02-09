@@ -122,6 +122,10 @@ class ProtoActivated : AppCompatActivity() {
         super.onStop()
         mSpotifyAppRemote?.playerApi?.pause()
         SpotifyAppRemote.disconnect(mSpotifyAppRemote)
+        Settings.System.putInt(this.contentResolver, Settings.System.SCREEN_BRIGHTNESS, saveBrightness)
+        timer.cancel()
+        if (mediaPlayer != null)
+            mediaPlayer!!.stop()
     }
 
     private fun startSpotify()
