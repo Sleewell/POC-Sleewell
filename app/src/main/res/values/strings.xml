@@ -40,6 +40,11 @@
     <!-- Button -->
     <string name="Go_to_sleep_button">Go To Sleep</string>
 
-
+    <!-- Alarms sound -->
+    <string-array name="alarms_array">
+        <item>Choose music for your alarm</item>
+        <item>Bad guy</item>
+        <item>Mii theme</item>
+    </string-array>
 
 </resources>
