@@ -27,6 +27,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -50,4 +54,6 @@ dependencies {
     // your app dependencies
     implementation project(':spotify-app-remote')
     implementation "com.google.code.gson:gson:2.8.5"
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
