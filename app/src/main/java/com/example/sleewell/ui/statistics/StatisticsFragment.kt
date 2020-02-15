@@ -8,29 +8,30 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import android.util.DisplayMetrics
-import android.view.*
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sleewell.R
 import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
-import kotlinx.android.synthetic.main.activity_proto_activated.view.*
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.fragment_statistics.view.*
+import java.util.*
 
 
 class StatisticsFragment : Fragment() {
 
     private lateinit var staisticsViewModel: StatisticsViewModel
     private lateinit var chart : PieChart
+    private lateinit var chartBar : BarChart
+
     protected val parties = arrayOf(
         "Sommeil profond",
         "Sommeil léger",
@@ -47,7 +48,9 @@ class StatisticsFragment : Fragment() {
             ViewModelProviders.of(this).get(StatisticsViewModel::class.java)
         val root = inflater.inflate(com.example.sleewell.R.layout.fragment_statistics, container, false)
         chart = root.findViewById(com.example.sleewell.R.id.chart) as PieChart
+        chartBar = root.findViewById(com.example.sleewell.R.id.chartBar) as BarChart
         initGraphPie()
+        initGraphBar()
         return root
     }
 
@@ -81,19 +84,12 @@ class StatisticsFragment : Fragment() {
         chart.rotationAngle = 180f
         chart.setCenterTextOffset(0f, -20f)
 
-        setData(3, 100f)
+        setDataPie(3, 100f)
 
         chart.animateY(1400, Easing.EaseInOutQuad)
 
         val l = chart.legend
         l.isEnabled = false
-        /*l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.setDrawInside(false)
-        l.xEntrySpace = 7f
-        l.yEntrySpace = 0f
-        l.yOffset = 0f*/
 
         // entry label styling
         chart.setEntryLabelColor(Color.WHITE)
@@ -103,7 +99,7 @@ class StatisticsFragment : Fragment() {
         chart.invalidate()
     }
 
-    private fun setData(count: Int, range: Float) {
+    private fun setDataPie(count: Int, range: Float) {
 
         val values = ArrayList<PieEntry>()
 
@@ -140,5 +136,75 @@ class StatisticsFragment : Fragment() {
         s.setSpan(StyleSpan(Typeface.NORMAL), 0, s.length, 0)
         s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
         return s
+    }
+
+    private fun initGraphBar() {
+        chartBar.description.isEnabled = false
+        chartBar.setMaxVisibleValueCount(24)
+        chartBar.setPinchZoom(false)
+        chartBar.setDrawBarShadow(false)
+        chartBar.setDrawGridBackground(false)
+
+        val xAxis = chartBar.xAxis
+        xAxis.isEnabled = false
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+
+        chartBar.axisLeft.axisMinimum = 0.0f
+        chartBar.axisRight.axisMinimum = 0.0f
+
+        chartBar.axisRight.setDrawZeroLine(true)
+        chartBar.axisLeft.setDrawZeroLine(true)
+
+        chartBar.axisLeft.setDrawGridLines(false)
+        chartBar.axisLeft.textColor = Color.WHITE
+        chartBar.axisRight.setDrawGridLines(false)
+        chartBar.axisRight.textColor = Color.WHITE
+
+        // add a nice and smooth animation
+        chartBar.animateY(1000)
+
+        chartBar.legend.isEnabled = false
+
+
+        val values = ArrayList<BarEntry>()
+
+        values.add(BarEntry(0.0f, 8.45f))
+        values.add(BarEntry(1.0f, 6.56f))
+        values.add(BarEntry(2.0f, 8.50f))
+        values.add(BarEntry(3.0f, 7.45f))
+        values.add(BarEntry(4.0f, 7.00f))
+        values.add(BarEntry(5.0f, 9.10f))
+        values.add(BarEntry(6.0f, 8.50f))
+
+        val set1: BarDataSet
+
+        if (chartBar.data != null && chartBar.data.dataSetCount > 0) {
+            set1 = chartBar.data.getDataSetByIndex(0) as BarDataSet
+            set1.values = values
+            chartBar.data.notifyDataChanged()
+            chartBar.notifyDataSetChanged()
+        } else {
+            set1 = BarDataSet(values, "Data Set")
+            set1.setColors(*ColorTemplate.PASTEL_COLORS)
+            set1.setDrawValues(false)
+
+            val dataSets = ArrayList<IBarDataSet>()
+            dataSets.add(set1)
+
+            val data = BarData(dataSets)
+            chartBar.data = data
+            chartBar.setFitBars(true)
+        }
+
+        //zoom
+        chartBar.isDoubleTapToZoomEnabled = false
+        chartBar.setPinchZoom(false)
+
+        chartBar.setDrawGridBackground(false)
+        chartBar.data.isHighlightEnabled = !chartBar.data.isHighlightEnabled
+
+        chartBar.invalidate()
+
     }
 }
