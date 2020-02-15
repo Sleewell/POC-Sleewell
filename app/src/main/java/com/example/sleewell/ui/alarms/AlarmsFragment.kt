@@ -1,30 +1,34 @@
 package com.example.sleewell.ui.alarms
 
+import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.sleewell.R
+import java.text.DateFormat
 import java.util.*
+import android.widget.Button
+import android.widget.TextView
+import android.widget.TimePicker
 
-class AlarmsFragment : Fragment() {
 
+class AlarmsFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
+    private var mTextView: TextView? = null
     private lateinit var alarmsViewModel: AlarmsViewModel
-    private lateinit var timePicker: TimePicker
-    private lateinit var updateText: TextView
-    private lateinit var alarmManager: AlarmManager
-    // private lateinit var context: Context
-    private lateinit var pendingIntent: PendingIntent
-    private var choose_music: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,77 +38,52 @@ class AlarmsFragment : Fragment() {
         alarmsViewModel =
             ViewModelProviders.of(this).get(AlarmsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_alarms, container, false)
+
         super.onCreate(savedInstanceState)
-        // context = this
-        alarmManager = this.context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        timePicker = root.findViewById(R.id.timePicker)
-        updateText = root.findViewById(R.id.update_text)
-
-        val calendar = Calendar.getInstance()
-
-        val myIntent = Intent(context, AlarmReceiver::class.java)
-
-        val spinner = root.findViewById<Spinner>(R.id.spinner)
-        val adapter = ArrayAdapter.createFromResource(context!!, R.array.alarms_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
-        //spinner.onItemSelectedListener =
-
-        val alarm_on = root.findViewById<Button>(R.id.alarm_on)
-        alarm_on.setOnClickListener {
-            calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
-            calendar.set(Calendar.MINUTE, timePicker.minute)
-
-            val hour = timePicker.hour
-            val minute = timePicker.minute
-            val hour_string = hour.toString()
-            val minute_string = minute.toString()
-
-            setAlarmText("Alarm set to $hour_string:$minute_string")
-
-            myIntent.putExtra("extra", "alarm on")
-
-            myIntent.putExtra("music_choice", choose_music)
-
-            pendingIntent = PendingIntent.getBroadcast(
-                context!!,
-                0,
-                myIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        mTextView = root.findViewById(R.id.textView)
+        var buttonTimePicker = root.findViewById<Button>(R.id.button_timepicker)
+        buttonTimePicker.setOnClickListener {
+            val timePicker: DialogFragment = TimePickerFragment()
+            timePicker.show(activity!!.supportFragmentManager, "time picker")
         }
 
-        val alarm_off = root.findViewById<Button>(R.id.alarm_off)
-        alarm_off.setOnClickListener {
-            setAlarmText("Alarm off")
-
-            val alarmUp = PendingIntent.getBroadcast(
-                context, 0,
-                Intent("com.my.package.MY_UNIQUE_ACTION"),
-                PendingIntent.FLAG_NO_CREATE
-            ) != null
-            if (alarmUp)
-                alarmManager.cancel(pendingIntent)
-
-            myIntent.putExtra("extra", "alarm off")
-
-            myIntent.putExtra("music_choice", choose_music)
-            context!!.sendBroadcast(myIntent)
-        }
+        var buttonCancelAlarm = root.findViewById<Button>(R.id.button_cancel)
+        buttonCancelAlarm.setOnClickListener { cancelAlarm() }
         return root
     }
 
-    private fun setAlarmText(output: String) {
-        updateText.text = output
+    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
+        val c = Calendar.getInstance()
+        c[Calendar.HOUR_OF_DAY] = hourOfDay
+        c[Calendar.MINUTE] = minute
+        c[Calendar.SECOND] = 0
+        updateTimeText(c)
+        startAlarm(c)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
+    private fun updateTimeText(c: Calendar) {
+        var timeText: String? = "Alarm set for: "
+        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
+        mTextView!!.text = timeText
+    }
 
-        return if (id == R.id.action_settings) {
-            true
-        } else super.onOptionsItemSelected(item)
+    private fun startAlarm(c: Calendar) {
+        val alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlertReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1)
+        }
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+    }
 
+    private fun cancelAlarm() {
+        val alarmManager = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlertReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        mTextView!!.text = "Alarm canceled"
+        if (AlertReceiver.mp != null)
+            AlertReceiver.mp!!.stop()
     }
 }
