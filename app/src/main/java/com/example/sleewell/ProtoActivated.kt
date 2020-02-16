@@ -189,7 +189,7 @@ class ProtoActivated : AppCompatActivity() {
         mHideHandler.postDelayed(mHideRunnable, delayMillis.toLong())
     }
 
-    fun back(v : View) {
+    fun back(v: View) {
         Settings.System.putInt(this.contentResolver, Settings.System.SCREEN_BRIGHTNESS, saveBrightness)
         timer.cancel()
         if (mediaPlayer != null)

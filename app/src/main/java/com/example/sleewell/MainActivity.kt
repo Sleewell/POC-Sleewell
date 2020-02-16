@@ -2,6 +2,7 @@ package com.example.sleewell
 
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.TimePickerDialog
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -20,12 +22,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.example.sleewell.ui.alarms.AlarmsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.*
 
 
 const val EXTRA_MESSAGE = 0
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     var mnfcAdapter : NfcAdapter? = null
 
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         //enableForegroundDispatchSystem()
     }
 
-    fun StartSleep(v : View) {
+    fun StartSleep(v: View) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         if (prefs.all["SleepMode"] == true){
             enableDnd(true)
@@ -81,8 +85,8 @@ class MainActivity : AppCompatActivity() {
                     enableBluetooth(false)
                 }
                 Toast.makeText(applicationContext, "¨Phone asleep", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, ProtoActivated::class.java)
-                startActivity(intent)
+                val intentProto = Intent(this, ProtoActivated::class.java)
+                startActivity(intentProto)
             }
         }
     }
