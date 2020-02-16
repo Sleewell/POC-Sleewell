@@ -65,15 +65,22 @@ class ProtoActivated : AppCompatActivity() {
     private val timer = object: CountDownTimer(30000, 100) {
 
         override fun onTick(millisUntilFinished: Long) {
-            if (brightnessup)
-                brightness += 5
-            else
-                brightness -= 5
-            if (brightness > 100)
+            var y = findViewById<ImageView>(R.id.halo).height
+            var x = findViewById<ImageView>(R.id.halo).width
+            if (brightnessup) {
+                y += 20
+                x += 20
+            } else {
+                y -= 20
+                x -= 20
+            }
+            if (x >= 1000)
                 brightnessup = false
-            else if (brightness <= 0)
+            else if (x <= 0)
                 brightnessup = true
-            Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
+            findViewById<ImageView>(R.id.halo).getLayoutParams().height = y
+            findViewById<ImageView>(R.id.halo).layoutParams.width = x
+            findViewById<ImageView>(R.id.halo).requestLayout()
         }
         override fun onFinish() {}
     }
