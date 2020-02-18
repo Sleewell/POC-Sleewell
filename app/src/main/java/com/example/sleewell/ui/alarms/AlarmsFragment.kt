@@ -20,9 +20,6 @@ import java.text.DateFormat
 import java.util.*
 import android.widget.Button
 import android.widget.TextView
-import android.widget.TimePicker
-import android.app.Dialog
-import android.app.TimePickerDialog
 
 
 class AlarmsFragment : Fragment() {

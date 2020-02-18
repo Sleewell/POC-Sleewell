@@ -27,13 +27,11 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         // How to get preferences
-        val customAnalogClock = root.findViewById(R.id.analog_clock) as CustomAnalogClock
-        customAnalogClock.init(context)
-        customAnalogClock.setAutoUpdate(true)
+
 
         val ani = root.background as AnimationDrawable
-        ani.setEnterFadeDuration(10)
-        ani.setExitFadeDuration(5000)
+        ani.setEnterFadeDuration(5000)
+        ani.setExitFadeDuration(3000)
         ani.start()
 
         return root

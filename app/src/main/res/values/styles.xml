@@ -3,13 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowBackground">@color/BleuFoncé</item>
         <item name="android:textColorPrimary">@color/Orange</item>
         <item name="android:textColorSecondary">@color/Orange</item>
         <item name="android:textColorTertiary">@color/Orange</item>
         <item name="android:titleTextColor">@color/Orange</item>
-        <item name="colorPrimary">@color/BleuFoncé</item>
+        <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorAccent">@color/Orange</item>
+        <item name="android:timePickerDialogTheme">@style/myTimePickerStyle</item>
     </style>
     
     <style name="FullscreenTheme" parent="AppTheme">
@@ -27,6 +29,13 @@
         <item name="android:textColorTertiary">@color/Orange</item>
         <item name="colorPrimary">@color/BleuFoncé</item>
         <item name="colorAccent">@color/Orange</item>
+    </style>
+
+    <style name="myTimePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/Orange</item>
+        <item name="android:textColorPrimary">@color/Orange</item>
+        <item name="actionBarItemBackground">@color/BleuFoncé</item>
+        <!-- <item name="android:background">@color/BleuFoncé</item> -->
     </style>
 
 </resources>

@@ -27,7 +27,7 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
  * status bar and navigation/system bar) with user interaction.
  */
 class ProtoActivated : AppCompatActivity() {
-    private val CLIENT_ID = "d28a6b2240514ac1a918765697a631a1" //TODO a changer
+    private val CLIENT_ID = "3722b5755ff84907ac1da94c0eaad554" //TODO a changer
     private val REDIRECT_URI = "http://com.example.sleewell/callback"
     private var mSpotifyAppRemote: SpotifyAppRemote? = null
 

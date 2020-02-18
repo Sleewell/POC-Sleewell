@@ -7,30 +7,45 @@
     android:id="@+id/layout"
     android:background="@drawable/gradient_list">
 
-    <com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
-        android:id="@+id/analog_clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:default_watchface="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <DigitalClock
+
+        android:id="@+id/digitalClock"
+        android:layout_width="250dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/GoToSleepButton"
         android:layout_width="201dp"
         android:layout_height="64dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/button"
         android:onClick="StartSleep"
         android:text="@string/Go_to_sleep_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/analog_clock"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83"
         tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="69dp"
+        android:layout_height="223dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031"
+        app:srcCompat="@drawable/logo_sleewell" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
