@@ -35,7 +35,6 @@
         <item name="colorAccent">@color/Orange</item>
         <item name="android:textColorPrimary">@color/Orange</item>
         <item name="actionBarItemBackground">@color/BleuFoncé</item>
-        <!-- <item name="android:background">@color/BleuFoncé</item> -->
     </style>
 
 </resources>
