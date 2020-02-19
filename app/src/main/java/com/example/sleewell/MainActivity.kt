@@ -29,6 +29,7 @@ import java.util.*
 
 const val EXTRA_MESSAGE = 0
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(){
 
     var mnfcAdapter : NfcAdapter? = null
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(){
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        enableDnd(false)
         //enableForegroundDispatchSystem()
     }
 
@@ -110,7 +112,7 @@ class MainActivity : AppCompatActivity(){
     private fun enableWifi(value: Boolean) {
         val wifiManager : WifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q)
-            wifiManager.setWifiEnabled(value)
+            wifiManager.isWifiEnabled = value
     }
 
     private fun enableBluetooth(value: Boolean) {
@@ -143,6 +145,7 @@ class MainActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
         enableForegroundDispatchSystem()
+        enableDnd(false)
     }
 
     override fun onPause() {
